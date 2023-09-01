@@ -2,6 +2,7 @@ const handleCategoryBtn = async () => {
   const response = await fetch(
     `https://openapi.programming-hero.com/api/videos/categories`
   );
+
   const data = await response.json();
   const categories = data.data;
 
@@ -12,7 +13,6 @@ const handleCategoryBtn = async () => {
 
     categoryBtn.classList = `btn btn-accent capitalize active:btn-error`;
 
-    // categoryBtn.textContent = category.category;
     categoryBtn.innerHTML = `
     <div onclick="handleCategoryContent(${category.category_id})">
     ${category.category}
@@ -29,49 +29,67 @@ const handleCategoryContent = async (categoryId) => {
   );
   const data = await response.json();
   const content = data.data;
+  console.log(Object.keys(content).length);
 
-  // console.log(content);
   const contentContainer = document.getElementById("content-container");
+  contentContainer.innerHTML = ``;
 
-  content.forEach((card) => {
-    const contentCard = document.createElement("div");
+  if (Object.keys(content).length === 0) {
+    const emptyContent = document.createElement("div");
+    emptyContent.classList = `col-span-4`;
+    emptyContent.innerHTML = `
+  <div class="flex flex-col items-center justify-center w-full m-auto p-16">
+  <img src="images/Icon.png" alt="" />
+  <p class="text-black text-3xl font-bold text-center">
+    Oops!! Sorry, There is no content here
+  </p>
+</div>
+  `;
 
-    contentCard.innerHTML = `
-    <div class=" mt-2 relative">
-    <img src="${
-      card.thumbnail
-    }" alt="" class="rounded-lg w-[312px] h-[200px] " />
+    contentContainer.appendChild(emptyContent);
+  } else {
+    content.forEach((card) => {
+      const contentCard = document.createElement("div");
 
-    <p class="absolute bg-black text-white text-[10px] right-0 bottom-[37%] rounded-sm">${
-      card.others.posted_date ? timeConversion(card.others.posted_date) : ""
-    }</p>
-    <div class="flex mt-5 gap-3">
+      contentCard.classList = ``;
+      contentCard.innerHTML = `
+      <div class=" mt-2 relative">
       <img src="${
-        card.authors[0].profile_picture
-      }" alt="" class="rounded-full w-8 h-8" />
-
-      <div>
-        <h1 class="text-black font-bold">${card.title}</h1>
-
-        <div class="flex items-center gap-4">
-          <p class="my-2 text-[#171717B2] text-sm">${
-            card.authors[0].profile_name
-          }</p>
-
-          <img src="${
-            card.authors[0].verified ? "images/blueTick.png" : ""
-          }" class="w-4 h-4 ">
+        card.thumbnail
+      }" alt="" class="rounded-lg w-[312px] h-[200px] " />
+  
+      <p class="absolute bg-black text-white text-[10px] right-0 bottom-[37%] rounded-sm">${
+        card.others.posted_date ? timeConversion(card.others.posted_date) : ""
+      }</p>
+      <div class="flex mt-5 gap-3">
+        <img src="${
+          card.authors[0].profile_picture
+        }" alt="" class="rounded-full w-8 h-8" />
+  
+        <div>
+          <h1 class="text-black font-bold">${card.title}</h1>
+  
+          <div class="flex items-center gap-4">
+            <p class="my-2 text-[#171717B2] text-sm">${
+              card.authors[0].profile_name
+            }</p>
+  
+            <img src="${
+              card.authors[0].verified ? "images/blueTick.png" : ""
+            }" class="w-4 h-4 ">
+          </div>
+  
+          <p class="text-[#171717B2] font-sm mt-2">${
+            card.others.views
+          } views</p>
         </div>
-
-        <p class="text-[#171717B2] font-sm mt-2">${card.others.views} views</p>
       </div>
     </div>
-  </div>
-    `;
+      `;
 
-    contentContainer.appendChild(contentCard);
-    console.log(card.authors[0].profile_name);
-  });
+      contentContainer.appendChild(contentCard);
+    });
+  }
 };
 
 const timeConversion = (secondsTime) => {
