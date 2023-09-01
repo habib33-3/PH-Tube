@@ -36,7 +36,7 @@ const handleCategoryContent = async (categoryId) => {
 
   if (Object.keys(content).length === 0) {
     const emptyContent = document.createElement("div");
-    emptyContent.classList = `col-span-4`;
+    emptyContent.classList = `lg:col-span-4`;
     emptyContent.innerHTML = `
   <div class="flex flex-col items-center justify-center w-full m-auto p-16">
   <img src="images/Icon.png" alt="" />
@@ -53,35 +53,47 @@ const handleCategoryContent = async (categoryId) => {
 
       contentCard.classList = ``;
       contentCard.innerHTML = `
-      <div class=" mt-2 relative">
-      <img src="${
-        card.thumbnail
-      }" alt="" class="rounded-lg w-[312px] h-[200px] " />
-  
-      <p class="absolute bg-black text-white text-[10px] right-0 bottom-[37%] rounded-sm">${
-        card.others.posted_date ? timeConversion(card.others.posted_date) : ""
-      }</p>
+      <div class="card mt-2">
+      <div class="relative">
+        <img
+          src="${
+      card.thumbnail
+    }"
+          alt=""
+          class="rounded-lg w-[312px] h-[200px]"
+        />
+
+        <p
+          class="absolute bg-black text-white text-[10px] right-[20%] md:right-0 lg:right-0 bottom-0 rounded-sm"
+        >
+          ${ card.others.posted_date ?
+          timeConversion(card.others.posted_date) : "" }
+        </p>
+      </div>
       <div class="flex mt-5 gap-3">
-        <img src="${
-          card.authors[0].profile_picture
-        }" alt="" class="rounded-full w-8 h-8" />
-  
+        <img
+          src="${
+        card.authors[0].profile_picture
+      }"
+          alt=""
+          class="rounded-full w-8 h-8"
+        />
+
         <div>
           <h1 class="text-black font-bold">${card.title}</h1>
-  
+
           <div class="flex items-center gap-4">
-            <p class="my-2 text-[#171717B2] text-sm">${
-              card.authors[0].profile_name
-            }</p>
-  
-            <img src="${
-              card.authors[0].verified ? "images/blueTick.png" : ""
-            }" class="w-4 h-4 ">
+            <p class="my-2 text-[#171717B2] text-sm">
+              ${ card.authors[0].profile_name }
+            </p>
+
+            <img src="${ card.authors[0].verified ? "images/blueTick.png" :
+            "" }" class="w-4 h-4 ">
           </div>
-  
-          <p class="text-[#171717B2] font-sm mt-2">${
-            card.others.views
-          } views</p>
+
+          <p class="text-[#171717B2] font-sm mt-2">
+            ${ card.others.views } views
+          </p>
         </div>
       </div>
     </div>
