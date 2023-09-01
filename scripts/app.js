@@ -42,7 +42,9 @@ const handleCategoryContent = async (categoryId) => {
       card.thumbnail
     }" alt="" class="rounded-lg w-[312px] h-[200px]" />
 
-    <p class="absolute bg-black text-white text-[10px]">timestamp</p>
+    <p class="absolute bg-black text-white text-[10px] p-1 rounded-sm">${
+      card.others.posted_date ? timeConversion(card.others.posted_date) : ""
+    }</p>
 
     <div class="flex mt-5 gap-3">
       <img src="${
@@ -57,7 +59,9 @@ const handleCategoryContent = async (categoryId) => {
             card.authors[0].profile_name
           }</p>
 
-          <img src="${card.authors[0].verified ? "images/blueTick.png" : ""}" class="w-4 h-4 ">
+          <img src="${
+            card.authors[0].verified ? "images/blueTick.png" : ""
+          }" class="w-4 h-4 ">
         </div>
 
         <p class="text-[#171717B2] font-sm mt-2">${card.others.views} views</p>
@@ -69,6 +73,14 @@ const handleCategoryContent = async (categoryId) => {
     contentContainer.appendChild(contentCard);
     console.log(card.authors[0].profile_name);
   });
+};
+
+const timeConversion = (secondsTime) => {
+  const hourTime = parseInt(secondsTime / 3600);
+  const remainedTime = parseInt(secondsTime % 3600);
+  const minuteTime = parseInt(remainedTime / 60);
+
+  return `${hourTime}hrs ${minuteTime} min ago`;
 };
 
 handleCategoryBtn();
