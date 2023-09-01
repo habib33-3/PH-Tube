@@ -37,15 +37,14 @@ const handleCategoryContent = async (categoryId) => {
     const contentCard = document.createElement("div");
 
     contentCard.innerHTML = `
-    <div class="relative mt-2">
+    <div class=" mt-2 relative">
     <img src="${
       card.thumbnail
-    }" alt="" class="rounded-lg w-[312px] h-[200px]" />
+    }" alt="" class="rounded-lg w-[312px] h-[200px] " />
 
-    <p class="absolute bg-black text-white text-[10px] p-1 rounded-sm">${
+    <p class="absolute bg-black text-white text-[10px] right-0 bottom-[37%] rounded-sm">${
       card.others.posted_date ? timeConversion(card.others.posted_date) : ""
     }</p>
-
     <div class="flex mt-5 gap-3">
       <img src="${
         card.authors[0].profile_picture
