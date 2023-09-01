@@ -14,7 +14,9 @@ const handleCategoryBtn = async () => {
 
     // categoryBtn.textContent = category.category;
     categoryBtn.innerHTML = `
-    <div onclick="handleCategoryContent(${category.category_id})">${category.category}</div>
+    <div onclick="handleCategoryContent(${category.category_id})">
+    ${category.category}
+  </div>  
     `;
 
     categoryContainer.appendChild(categoryBtn);
@@ -50,12 +52,12 @@ const handleCategoryContent = async (categoryId) => {
       <div>
         <h1 class="text-black font-bold">${card.title}</h1>
 
-        <div class="flex">
+        <div class="flex items-center gap-4">
           <p class="my-2 text-[#171717B2] text-sm">${
             card.authors[0].profile_name
           }</p>
 
-          <p>${card.authors[0].verified ? "images/blueTick.png" : ""}</p>
+          <img src="${card.authors[0].verified ? "images/blueTick.png" : ""}" class="w-4 h-4 ">
         </div>
 
         <p class="text-[#171717B2] font-sm mt-2">${card.others.views} views</p>
