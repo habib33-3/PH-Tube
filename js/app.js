@@ -56,9 +56,7 @@ const handleCategoryContent = async (categoryId) => {
       <div class="card mt-2">
       <div class="relative">
         <img
-          src="${
-      card.thumbnail
-    }"
+          src="${card.thumbnail}"
           alt=""
           class="rounded-lg w-[312px] h-[200px]"
         />
@@ -66,15 +64,16 @@ const handleCategoryContent = async (categoryId) => {
         <p
           class="absolute bg-black text-white text-[10px] right-[20%] md:right-0 lg:right-0 bottom-0 rounded-sm"
         >
-          ${ card.others.posted_date ?
-          timeConversion(card.others.posted_date) : "" }
+          ${
+            card.others.posted_date
+              ? timeConversion(card.others.posted_date)
+              : ""
+          }
         </p>
       </div>
       <div class="flex mt-5 gap-3">
         <img
-          src="${
-        card.authors[0].profile_picture
-      }"
+          src="${card.authors[0].profile_picture}"
           alt=""
           class="rounded-full w-8 h-8"
         />
@@ -84,15 +83,16 @@ const handleCategoryContent = async (categoryId) => {
 
           <div class="flex items-center gap-4">
             <p class="my-2 text-[#171717B2] text-sm">
-              ${ card.authors[0].profile_name }
+              ${card.authors[0].profile_name}
             </p>
 
-            <img src="${ card.authors[0].verified ? "images/blueTick.png" :
-            "" }" class="w-4 h-4 ">
+            <img src="${
+              card.authors[0].verified ? "images/blueTick.png" : ""
+            }" class="w-4 h-4 ">
           </div>
 
           <p class="text-[#171717B2] font-sm mt-2">
-            ${ card.others.views } views
+            ${card.others.views} views
           </p>
         </div>
       </div>
@@ -112,5 +112,8 @@ const timeConversion = (secondsTime) => {
   return `${hourTime}hrs ${minuteTime} min ago`;
 };
 
+document.getElementById("blog-btn").addEventListener("click", () => {
+  window.location.href = "../blog.html";
+});
 handleCategoryBtn();
 handleCategoryContent(1000);
