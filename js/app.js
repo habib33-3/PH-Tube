@@ -15,8 +15,8 @@ const handleCategoryBtn = async () => {
 
     categoryBtn.innerHTML = `
     <div onclick="handleCategoryContent(${category.category_id})">
-    ${category.category}
-  </div>  
+  ${category.category}
+    </div>
     `;
 
     categoryContainer.appendChild(categoryBtn);
@@ -40,50 +40,43 @@ const handleCategoryContent = async (categoryId) => {
 
       contentCard.classList = ``;
       contentCard.innerHTML = `
-      <div class="card mt-2">
-      <div class="relative">
-        <img
-          src="${card.thumbnail}"
-          alt=""
-          class="rounded-lg w-[312px] h-[200px]"
-        />
+      <div class="mt-2 card">
+  <div class="relative">
+    <img
+      src="${card.thumbnail}"
+      alt=""
+      class="rounded-lg w-[312px] h-[200px]"
+    />
 
-        <p
-          class="absolute bg-black text-white text-[10px] right-[20%] md:right-0 lg:right-0 bottom-0 rounded-sm"
-        >
-          ${
-            card.others.posted_date
-              ? timeConversion(card.others.posted_date)
-              : ""
-          }
+    <p
+      class="absolute bg-black text-white text-[10px] right-[20%] md:right-0 lg:right-0 bottom-0 rounded-sm"
+    >
+      ${card.others.posted_date ? timeConversion(card.others.posted_date) : ""}
+    </p>
+  </div>
+  <div class="flex gap-3 mt-5">
+    <img
+      src="${card.authors[0].profile_picture}"
+      alt=""
+      class="w-8 h-8 rounded-full"
+    />
+
+    <div>
+      <h1 class="font-bold text-black">${card.title}</h1>
+
+      <div class="flex items-center gap-4">
+        <p class="my-2 text-[#171717B2] text-sm">
+          ${card.authors[0].profile_name}
         </p>
+
+        <img src="${card.authors[0].verified ? "images/blueTick.png" : ""}"
+        class="w-4 h-4 ">
       </div>
-      <div class="flex mt-5 gap-3">
-        <img
-          src="${card.authors[0].profile_picture}"
-          alt=""
-          class="rounded-full w-8 h-8"
-        />
 
-        <div>
-          <h1 class="text-black font-bold">${card.title}</h1>
-
-          <div class="flex items-center gap-4">
-            <p class="my-2 text-[#171717B2] text-sm">
-              ${card.authors[0].profile_name}
-            </p>
-
-            <img src="${
-              card.authors[0].verified ? "images/blueTick.png" : ""
-            }" class="w-4 h-4 ">
-          </div>
-
-          <p class="text-[#171717B2] font-sm mt-2">
-            ${card.others.views} views
-          </p>
-        </div>
-      </div>
+      <p class="text-[#171717B2] font-sm mt-2">${card.others.views} views</p>
     </div>
+  </div>
+</div>
       `;
 
       contentContainer.appendChild(contentCard);
@@ -94,12 +87,12 @@ const handleCategoryContent = async (categoryId) => {
     const emptyContent = document.createElement("div");
     emptyContent.classList = `lg:col-span-4`;
     emptyContent.innerHTML = `
-  <div class="flex flex-col items-center justify-center w-full m-auto p-16">
-  <img src="images/Icon.png" alt="" />
-  <p class="text-black text-3xl font-bold text-center mt-4">
-    Oops!! Sorry, There is no content here
-  </p>
-</div>
+    <div class="flex flex-col items-center justify-center w-full p-16 m-auto">
+    <img src="images/Icon.png" alt="" />
+    <p class="mt-4 text-3xl font-bold text-center text-black">
+      Oops!! Sorry, There is no content here
+    </p>
+    </div>
   `;
 
     contentContainer.appendChild(emptyContent);
