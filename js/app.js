@@ -69,8 +69,10 @@ const handleCategoryContent = async (categoryId) => {
           ${card.authors[0].profile_name}
         </p>
 
-        <img src="${card.authors[0].verified ? "images/blueTick.png" : ""}"
-        class="w-4 h-4 ">
+        <img src="${
+          card.authors[0].verified ? "images/blueTick.png" : ""
+        }" class="w-4 h-4" onerror="this.style.display='none';" >
+
       </div>
 
       <p class="text-[#171717B2] font-sm mt-2">${card.others.views} views</p>
