@@ -23,13 +23,17 @@ const handleCategoryBtn = async () => {
   });
 };
 
-const handleCategoryContent = async (categoryId) => {
+const fetchData = async () => {
   const response = await fetch(
     ` https://openapi.programming-hero.com/api/videos/category/${categoryId}`
   );
   const data = await response.json();
-  const content = data.data;
-  console.log(Object.keys(content).length);
+
+  return data.data;
+};
+
+const handleCategoryContent = (categoryId) => {
+  const content = fetchData();
 
   const contentContainer = document.getElementById("content-container");
   contentContainer.innerHTML = ``;
@@ -40,7 +44,7 @@ const handleCategoryContent = async (categoryId) => {
     emptyContent.innerHTML = `
   <div class="flex flex-col items-center justify-center w-full m-auto p-16">
   <img src="images/Icon.png" alt="" />
-  <p class="text-black text-3xl font-bold text-center">
+  <p class="text-black text-3xl font-bold text-center mt-4">
     Oops!! Sorry, There is no content here
   </p>
 </div>
@@ -115,5 +119,6 @@ const timeConversion = (secondsTime) => {
 document.getElementById("blog-btn").addEventListener("click", () => {
   window.location.href = "../blog.html";
 });
+
 handleCategoryBtn();
 handleCategoryContent(1000);
