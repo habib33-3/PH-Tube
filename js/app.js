@@ -23,35 +23,18 @@ const handleCategoryBtn = async () => {
   });
 };
 
-const fetchData = async () => {
+const handleCategoryContent = async (categoryId) => {
   const response = await fetch(
     ` https://openapi.programming-hero.com/api/videos/category/${categoryId}`
   );
   const data = await response.json();
 
-  return data.data;
-};
-
-const handleCategoryContent = (categoryId) => {
-  const content = fetchData();
+  content = data.data;
 
   const contentContainer = document.getElementById("content-container");
   contentContainer.innerHTML = ``;
 
-  if (Object.keys(content).length === 0) {
-    const emptyContent = document.createElement("div");
-    emptyContent.classList = `lg:col-span-4`;
-    emptyContent.innerHTML = `
-  <div class="flex flex-col items-center justify-center w-full m-auto p-16">
-  <img src="images/Icon.png" alt="" />
-  <p class="text-black text-3xl font-bold text-center mt-4">
-    Oops!! Sorry, There is no content here
-  </p>
-</div>
-  `;
-
-    contentContainer.appendChild(emptyContent);
-  } else {
+  const showContent = () => {
     content.forEach((card) => {
       const contentCard = document.createElement("div");
 
@@ -104,6 +87,35 @@ const handleCategoryContent = (categoryId) => {
       `;
 
       contentContainer.appendChild(contentCard);
+    });
+  };
+
+  if (Object.keys(content).length === 0) {
+    const emptyContent = document.createElement("div");
+    emptyContent.classList = `lg:col-span-4`;
+    emptyContent.innerHTML = `
+  <div class="flex flex-col items-center justify-center w-full m-auto p-16">
+  <img src="images/Icon.png" alt="" />
+  <p class="text-black text-3xl font-bold text-center mt-4">
+    Oops!! Sorry, There is no content here
+  </p>
+</div>
+  `;
+
+    contentContainer.appendChild(emptyContent);
+  } else {
+    showContent();
+
+    document.getElementById("sort-btn").addEventListener("click", () => {
+      contentContainer.innerHTML = "";
+
+      content.sort((a, b) => {
+        const aView = parseFloat(a.others.views);
+        const bView = parseFloat(b.others.views);
+
+        return bView - aView;
+      });
+      showContent();
     });
   }
 };
