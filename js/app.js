@@ -11,7 +11,7 @@ const handleCategoryBtn = async () => {
   categories.forEach((category) => {
     const categoryBtn = document.createElement("button");
 
-    categoryBtn.classList = `btn btn-accent capitalize active:btn-error`;
+    categoryBtn.classList = `btn btn-accent capitalize focus:btn-error`;
 
     categoryBtn.innerHTML = `
     <div onclick="handleCategoryContent(${category.category_id})">
